@@ -1,16 +1,59 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
   <head>
+    <meta charset="utf-8">
+    <title>HW1</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
+    
+    
   </head>
   
   <body>
     <p> This is a paragraph </p>
     
     <script>
-      d3.select("p").text("Sup");
+    
+     d3.select("body").append("p").text("Welcome to D3");
+     
+     d3.text("http://www.csee.umbc.edu/~jichen/courses/Fall2016DataVis/hw1/data1.1ctl_skel_Z91077_A1256_S1077.txt", function(error, text) {
+        if (error) throw error;
+        console.log(text); // Hello, world!
+     });
+     
+     d3.dsvFormat(" ");
+     
+     var canvas = d3.select("body")
+        .append("svg")
+        .attr("height",500)
+        .attr("width", 1000);
+        
+      canvas.append("circle")
+        .attr("r", 50)
+        .attr("cx", 100)
+        .attr("cy", 100)
+        .attr("fill", "red");
+        
+      canvas.append("circle")
+        .attr("r", 50)
+        .attr("cx", 200)
+        .attr("cy", 100)
+        .attr("fill", "red");
+        
+      canvas.append("rect")
+        .attr("height", 200)
+        .attr("width", 100)
+        .attr("x", 300)
+        .attr("y", 100)
+        .attr("fill", "red");
+       
+      canvas.append("ellipse")
+        .attr("cx",900)
+        .attr("cy",600)
+        .attr("rx",25)
+        .attr("fill", "blue");
+      d3.select("body").append("p").text("Welcome to D3, this is cool");
     </script>
   
   </body>

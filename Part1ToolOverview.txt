@@ -1,2 +1,1 @@
 
-I first checked out Slicer because it reminded me of the G-code generator for 3D printers called Slic3r.
