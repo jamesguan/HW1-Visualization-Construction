@@ -5,55 +5,79 @@
   <head>
     <meta charset="utf-8">
     <title>HW1</title>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
     
     
   </head>
   
   <body>
-    <p> This is a paragraph </p>
+    <canvas id="myCanvas" width="500" height="500" style="border:0px solid #d3d3d3;">
+      Canvas doesn't work in your web browser ya dingus </canvas>
     
     <script>
     
-     d3.select("body").append("p").text("Welcome to D3");
+    d3.select("body").append("p").text("Welcome to D3");
      
-     d3.text("http://www.csee.umbc.edu/~jichen/courses/Fall2016DataVis/hw1/data1.1ctl_skel_Z91077_A1256_S1077.txt", function(error, text) {
+    function decToHex(d) {
+      if (d<10) return d;
+      if (d==10) return "A";
+      if (d==11) return "B";
+      if (d==12) return "C";
+      if (d==13) return "D";
+      if (d==14) return "E";
+      if (d==15) return "F";
+      return "";
+    }
+
+     
+     var data = d3.text("data.txt", function(error, text) {
         if (error) throw error;
-        console.log(text); // Hello, world!
-     });
+        var spacesv = d3.dsvFormat(" ");
      
-     d3.dsvFormat(" ");
-     
-     var canvas = d3.select("body")
-        .append("svg")
+        var fileData = spacesv.parseRows(text);
+        
+        
+        var ctx = d3.select("body")
+        .append("canvas")
         .attr("height",500)
         .attr("width", 1000);
         
-      canvas.append("circle")
-        .attr("r", 50)
-        .attr("cx", 100)
-        .attr("cy", 100)
-        .attr("fill", "red");
+        <!-- var canvas = document.getElementById("myCanvas"); -->
+        <!-- var ctx = canvas.getContext("2d");                -->
+
         
-      canvas.append("circle")
-        .attr("r", 50)
-        .attr("cx", 200)
-        .attr("cy", 100)
-        .attr("fill", "red");
+        for (var i = 0; i < fileData.length; i++){
+          var row = fileData[i];
+          
+          for (var j = 0; j < row.length; j++){
+            var pixelValue = parseFloat(row[j]);
+            var colorString = "#";
+            var red1 = decToHex(Math.floor(pixelValue*255/16));
+            var red2 = decToHex(Math.floor(pixelValue*255%16));
+            colorString += (red1+red1+"0000");
+            if (pixelValue==0) {
+              colorString="#000000";
+            } else {
+              colorString="#ff0000";
+            }
+            ctx.fillStyle = colorString;
+            ctx.fillRect(2*i,2*j,2,2);
+          }
+        }
+        <!-- console.log(fileData); -->
+ 
+        <!-- console.log(text); // Hello, world! -->
+        //d3.select("body").append("p").text(text);
+     });
+     
+     
         
-      canvas.append("rect")
-        .attr("height", 200)
-        .attr("width", 100)
-        .attr("x", 300)
-        .attr("y", 100)
-        .attr("fill", "red");
-       
-      canvas.append("ellipse")
-        .attr("cx",900)
-        .attr("cy",600)
-        .attr("rx",25)
-        .attr("fill", "blue");
-      d3.select("body").append("p").text("Welcome to D3, this is cool");
+     //var ctx = canvas.getContext("2D Brain");
+     
+     
+   
+     
+     
     </script>
   
   </body>
