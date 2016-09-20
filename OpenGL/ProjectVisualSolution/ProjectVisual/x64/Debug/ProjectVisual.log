@@ -1,4 +1,0 @@
-﻿  main.cpp
-c:\users\explorer\documents\github\cmsc436\hw1-visualization-construction\opengl\projectvisualsolution\projectvisual\main.cpp(127): warning C4101: 'windowEvent': unreferenced local variable
-main.obj : error LNK2019: unresolved external symbol __imp_glViewport referenced in function wWinMain
-C:\Users\Explorer\Documents\GitHub\CMSC436\HW1-Visualization-Construction\OpenGL\ProjectVisualSolution\x64\Debug\ProjectVisual.exe : fatal error LNK1120: 1 unresolved externals

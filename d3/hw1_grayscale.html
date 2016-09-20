@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<!-- James Guan -->
+<!-- This one represents the image with black to grey -->
+<!-- Just a different way of looking at it from the other ones -->
+  <head>
+    <meta charset="utf-8">
+    <title>HW1</title>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    
+  </head>
+  
+  <body>
+    <div id="vis"></div>
+    
+    <script>
+     
+    <!-- function to convert to hex (useless after I found that I could use RGB instead)
+    function decToHex(d) {
+      if (d<10) return d;
+      if (d==10) return "A";
+      if (d==11) return "B";
+      if (d==12) return "C";
+      if (d==13) return "D";
+      if (d==14) return "E";
+      if (d==15) return "F";
+      return "";
+    }
+
+    <!-- Use the div as a place to store the d3 components -->
+    var base = d3.select("#vis");
+    
+    <!-- Append the canvas to d3 -->
+    var display = base.append("canvas")
+      .attr("width", 1000)
+      .attr("height", 1000);
+     
+    <!-- Get the canvas -->
+    var ctx = display.node().getContext("2d");
+    
+    <!-- I like using math more though -->
+    var scale = d3.scaleLinear()
+      .range([10, 390])
+      .domain([1,23]);
+    
+    ctx.font = "30px Open Sans";
+    <!-- textAlign supports: start, end, left, right, center -->
+    ctx.textAlign = "start"; 
+    <!-- textBaseline supports: top, hanging, middle, alphabetic, ideographic bottom -->
+    ctx.textBaseline = "hanging"
+    
+    <!-- Read in data via the d3.dsvFormat (delimiter seperated values), in this case is spaces -->
+    var data = d3.text("data.txt", function(error, text) {
+      if (error) throw error;
+      var spacesv = d3.dsvFormat(" ");
+     
+      var fileData = spacesv.parseRows(text);
+        
+        for (var i = 0; i < fileData.length; i++){
+          var row = fileData[i];
+          
+          for (var j = 0; j < row.length; j++){
+          
+            <!-- NO Longer need from here -->
+            var pixelValue = parseFloat(row[j]);
+            
+            <!-- to here but it's nice to look at -->
+            
+            <!-- Fill with black to grey -->
+            ctx.fillStyle = 'rgb(' + Math.floor(132 * pixelValue) + ',' +  Math.floor(132 * pixelValue) + ',' +  Math.floor(132 * pixelValue) +')';
+            
+            <!-- Emulating drawing pixel by pixel, but 4 pixels wide -->
+            ctx.fillRect(2*i,2*j + 100,2,2);
+          }
+        }
+        
+        <!-- Draw Legend and Scale, goes from black to grey-->
+        ctx.fillStyle = "#ffffff";
+        ctx.rect(99, 479, 202 ,22);
+        var m = 0;
+        for (var k = 0.0; k < 1.0; k = k + 0.004){
+          ctx.fillStyle = 'rgb(' + Math.floor(132 * k) + ',' +  Math.floor(132 * k) + ',' +  Math.floor(132 * k ) +')';
+          ctx.fillRect(50 + m , 480, 1, 20); 
+          m = m + 1;
+        }
+        ctx.fillStyle = "#000000";
+        ctx.fillText("Diffusion Tensor Image of Brain", 0, 0);
+        
+        ctx.fillStyle = "#ffffff";
+        
+        <!-- Draw scale -->
+        ctx.fillText("0                             1", 50, 505);
+        
+     });
+     
+         
+    </script>
+  
+  </body>
+  
+</html>
